@@ -3,7 +3,7 @@
 
 Name:           libqtelegram-ae
 Version:        10.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fork of libqtelegram by Aseman Team
 
 License:        GPLv3+
@@ -46,6 +46,9 @@ popd
 %install
 %make_install INSTALL_ROOT=%{buildroot} -C %{_target_platform}
 
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+
 %files
 %license LICENSE
 %{_libdir}/%{name}.so.*
@@ -55,5 +58,8 @@ popd
 %{_libdir}/%{name}.so
 
 %changelog
+* Sat Jul 23 2016 Igor Gnatenko <ignatenko@redhat.com> - 10.0.0-2
+- Run /sbin/ldconfig in %%post and %%postun
+
 * Sat Jul 23 2016 Igor Gnatenko <ignatenko@redhat.com> - 10.0.0-1
 - Initial package
